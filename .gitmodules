@@ -1,0 +1,6 @@
+[submodule "fullstack/invent"]
+	path = fullstack/invent
+	url = https://github.com/A-n-u-b-h-a-v/invent.git
+[submodule "fullstack/mooz"]
+	path = fullstack/mooz
+	url = https://github.com/A-n-u-b-h-a-v/mooz.git
