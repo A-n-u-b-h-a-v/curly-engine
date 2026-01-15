@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+/* Mollen Font Face Declarations */
+@font-face {
+  font-family: "Mollen";
+  src: url("/font/Mollen Personal Use-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mollen";
+  src: url("/font/Mollen Personal Use-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mollen";
+  src: url("/font/Mollen Personal Use-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Mollen";
+  src: url("/font/Mollen Personal Use-LightCondensed.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: condensed;
+}
+
+@font-face {
+  font-family: "Mollen";
+  src: url("/font/Mollen Personal Use-Condensed.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: condensed;
+}
+
+@font-face {
+  font-family: "Mollen";
+  src: url("/font/Mollen Personal Use-BoldCondensed.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: condensed;
+}
+
+@font-face {
+  font-family: "Mollen";
+  src: url("/font/Mollen Personal Use-LightNarrow.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: ultra-condensed;
+}
+
+@font-face {
+  font-family: "Mollen";
+  src: url("/font/Mollen Personal Use-Narrow.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: ultra-condensed;
+}
+
+@font-face {
+  font-family: "Mollen";
+  src: url("/font/Mollen Personal Use-BoldNarrow.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: ultra-condensed;
+}
+
+/* Mollen Font Classes */
+.mollen-light {
+  font-family: "Mollen", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.mollen-regular {
+  font-family: "Mollen", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.mollen-bold {
+  font-family: "Mollen", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.mollen-light-condensed {
+  font-family: "Mollen", sans-serif;
+  font-weight: 300;
+  font-stretch: condensed;
+  font-style: normal;
+}
+
+.mollen-condensed {
+  font-family: "Mollen", sans-serif;
+  font-weight: 400;
+  font-stretch: condensed;
+  font-style: normal;
+}
+
+.mollen-bold-condensed {
+  font-family: "Mollen", sans-serif;
+  font-weight: 700;
+  font-stretch: condensed;
+  font-style: normal;
+}
+
+.mollen-light-narrow {
+  font-family: "Mollen", sans-serif;
+  font-weight: 300;
+  font-stretch: ultra-condensed;
+  font-style: normal;
+}
+
+.mollen-narrow {
+  font-family: "Mollen", sans-serif;
+  font-weight: 400;
+  font-stretch: ultra-condensed;
+  font-style: normal;
+}
+
+.mollen-bold-narrow {
+  font-family: "Mollen", sans-serif;
+  font-weight: 700;
+  font-stretch: ultra-condensed;
+  font-style: normal;
+}
+
+/* Carousel Animations */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 30s linear infinite;
+}
+
+.animate-scroll-right {
+  animation: scroll-right 30s linear infinite;
+}
+
+/* Pause animation on hover */
+.animate-scroll-left:hover,
+.animate-scroll-right:hover {
+  animation-play-state: paused;
+}
+  
