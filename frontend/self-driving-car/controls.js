@@ -1,12 +1,13 @@
 class Controls{
-    constructor(contolType){
+    constructor(controlType){
         this.forward=false;
         this.left=false;
         this.right=false;
         this.reverse=false;
-        switch (contolType) {
+
+        switch (controlType) {
             case "KEYS":
-                this.#addKeyboardListners();
+                this.#addKeyboardListeners();
                 break;
         
             case "DUMMY":
@@ -14,25 +15,27 @@ class Controls{
                 break
         }
     }
-    #addKeyboardListners() {
-    const leftKeys = ["ArrowLeft", "a", "A"];
-    const rightKeys = ["ArrowRight", "d", "D"];
-    const upKeys = ["ArrowUp", "w", "W"];
-    const downKeys = ["ArrowDown", "s", "S"];
+    #addKeyboardListeners() {
+        this.keys={
+            ArrowLeft:false, ArrowRight:false, ArrowUp:false, ArrowDown:false,
+            a:false, d:false, w:false, s:false, 
+            A:false, D:false, W:false, S:false
+        };
 
-    document.onkeydown = (event) => {
-        if (leftKeys.includes(event.key)) this.left = true;
-        if (rightKeys.includes(event.key)) this.right = true;
-        if (upKeys.includes(event.key)) this.forward = true;
-        if (downKeys.includes(event.key)) this.reverse = true;
-    };
+        document.addEventListener("keydown",(event)=>{
+            this.keys[event.key]=true;
+            this.#updateState();
+        });
+        document.addEventListener("keyup",(event)=>{
+            this.keys[event.key]=false;
+            this.#updateState();
+        });
+    }
 
-    document.onkeyup = (event) => {
-        if (leftKeys.includes(event.key)) this.left = false;
-        if (rightKeys.includes(event.key)) this.right = false;
-        if (upKeys.includes(event.key)) this.forward = false;
-        if (downKeys.includes(event.key)) this.reverse = false;
-    };
-}
-
+    #updateState(){
+        this.left = this.keys.ArrowLeft || this.keys.a || this.keys.A;
+        this.right = this.keys.ArrowRight || this.keys.d || this.keys.D;
+        this.forward = this.keys.ArrowUp || this.keys.w || this.keys.W;
+        this.reverse = this.keys.ArrowDown || this.keys.s || this.keys.S;
+    }
 }

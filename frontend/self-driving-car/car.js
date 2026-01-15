@@ -17,26 +17,18 @@ class Car{
         if(controlType!="DUMMY"){
             this.sensor=new Sensor(this);
             this.brain=new NeuralNetwork(
-                [this.sensor.rayCount,6,4]
+                [this.sensor.rayCount+1,6,4] // +1 for speed
             );
         }
         this.controls=new Controls(controlType);
 
         this.img=new Image();
         this.img.src="car.png"
+        this.color=color;
 
-        this.mask=document.createElement("canvas");
-        this.mask.width=width;
-        this.mask.height=height;
-
-        const maskCtx=this.mask.getContext("2d");
-        this.img.onload=()=>{
-            maskCtx.fillStyle=color;
-            maskCtx.rect(0,0,this.width,this.height);
-            maskCtx.fill();
-
-            maskCtx.globalCompositeOperation="destination-atop";
-            maskCtx.drawImage(this.img,0,0,this.width,this.height);
+        // Static cache for tinted car images
+        if (!Car.imageCache) {
+            Car.imageCache = {};
         }
     }
 
@@ -51,6 +43,9 @@ class Car{
             const offsets=this.sensor.readings.map(
                 s=>s==null?0:1-s.offset
             );
+            // Feed speed into the network (normalized 0-1)
+            offsets.push(this.speed/this.maxSpeed);
+            
             const outputs=NeuralNetwork.feedForward(offsets,this.brain);
 
             if(this.useBrain){
@@ -146,8 +141,28 @@ class Car{
         ctx.save();
         ctx.translate(this.x,this.y);
         ctx.rotate(-this.angle);
+
+        // Check if we have this color in cache
+        if(!Car.imageCache[this.color]){
+             const mask=document.createElement("canvas");
+             mask.width=this.width;
+             mask.height=this.height;
+             const maskCtx=mask.getContext("2d");
+             
+             // We need to wait for image to load if it's the very first time ever
+             // But usually it loads fast. For safety we can draw fallback or try immediate
+             maskCtx.fillStyle=this.color;
+             maskCtx.rect(0,0,this.width,this.height);
+             maskCtx.fill();
+
+             maskCtx.globalCompositeOperation="destination-atop";
+             maskCtx.drawImage(this.img,0,0,this.width,this.height);
+             
+             Car.imageCache[this.color] = mask;
+        }
+
         if(!this.damaged){
-            ctx.drawImage(this.mask,
+             ctx.drawImage(Car.imageCache[this.color],
                 -this.width/2,
                 -this.height/2,
                 this.width,
